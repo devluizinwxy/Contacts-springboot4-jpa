@@ -1,21 +1,30 @@
 package com.seuprojeto.contacts_api.entities;
 
 
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 @Entity
-@Table(name = "tb_contact" )
+@Table(name = "tb_contact")
 public class Contact implements Serializable {
     private static final long serialVersionUID = 1L;
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @NotNull
     private String name;
+    @Email
     private String email;
+
     private String phone;
+    @CPF
     private String cpf;
 
     public Contact() {
