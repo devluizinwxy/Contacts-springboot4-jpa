@@ -1,10 +1,12 @@
 package com.seuprojeto.contacts_api.entities;
 
 
+import com.seuprojeto.contacts_api.entities.validation.constraints.PhoneBr;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
@@ -17,14 +19,18 @@ public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Field not provided")
     @NotNull
+    @Pattern(regexp = "^[\\p{Lu}][\\p{Ll}]+(\\s[\\p{Lu}][\\p{Ll}]+)+$", message ="Invalid value")
     private String name;
-    @Email
+    @Email(message = "Invalid value")
+    @NotBlank(message = "Field not provided")
     private String email;
-
+    @PhoneBr(message = "Invalid value")
     private String phone;
-    @CPF
+
+    @CPF(message = "Invalid value")
+    @NotBlank(message = "Field not provided")
     private String cpf;
 
     public Contact() {

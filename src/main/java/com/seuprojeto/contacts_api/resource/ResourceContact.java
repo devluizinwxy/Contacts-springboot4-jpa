@@ -2,6 +2,7 @@ package com.seuprojeto.contacts_api.resource;
 
 import com.seuprojeto.contacts_api.entities.Contact;
 import com.seuprojeto.contacts_api.services.ServiceContact;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/contacts")
 public class ResourceContact {
     @Autowired
     ServiceContact serviceContact;
@@ -23,7 +24,7 @@ public class ResourceContact {
         return ResponseEntity.ok().body(serviceContact.findById(id));
     }
     @PostMapping
-    public ResponseEntity<Contact> insert(@RequestBody Contact contact){
+    public ResponseEntity<Contact> insert(@RequestBody @Valid Contact contact){
         Contact contact1 = serviceContact.insert(contact);
         return ResponseEntity.ok().body(contact);
 
@@ -35,7 +36,7 @@ public class ResourceContact {
         return ResponseEntity.noContent().build();
     }
  @PutMapping("/{id}")
-    public ResponseEntity<Contact> update(@PathVariable Long id,@RequestBody Contact contact){
+    public ResponseEntity<Contact> update(@PathVariable Long id,@RequestBody @Valid Contact contact){
         Contact contact1 = serviceContact.update(contact,id);
         return ResponseEntity.ok().body(contact1);
 
